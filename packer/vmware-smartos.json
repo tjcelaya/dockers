@@ -1,0 +1,33 @@
+{
+  "variables": {
+    "smartos_release": "20170622-20170622T212149Z",
+    "smartos_version": "20170622T212149Z",
+    "smartos_checksum": "c4085794bf6a1f34db235df8cf51f1ef",
+    "vm_name": "smartos-20170622T212149Z"
+  },
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "headless": false,
+      "iso_checksum": "{{user `smartos_checksum`}}",
+      "iso_checksum_type": "md5",
+      "iso_url": "https://us-east.manta.joyent.com/Joyent_Dev/public/builds/smartos/release-{{user `smartos_release`}}/smartos/smartos-{{user `smartos_version`}}.iso",
+      "output_directory": "output/{{user `vm_name`}}",
+      "ssh_username": "root",
+      "boot_wait": "20s",
+      "boot_command": [
+        "<enter>",
+        "<wait10>",
+        "<wait10>",
+        "<wait10>",
+        "Y<enter><wait>",
+        "dhcp<enter><wait>",
+        "c0d0<enter><wait>",
+        "template<enter>template<enter>",
+        "y<enter><wait>",
+        "n<enter><wait>",
+        "y<enter><wait>"
+      ],
+    }
+  ]
+}

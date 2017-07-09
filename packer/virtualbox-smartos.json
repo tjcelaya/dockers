@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "smartos_version": "20140821T185718Z",
+    "smartos_checksum": "92e01b194c8b9f0efaffc0afd2aeaa7b",
+    "vm_name": "smartos"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "headless": true,
+      "boot_command": [
+        "<enter>",
+        "<wait10>",
+        "<wait10>",
+        "<wait10>",
+        "Y<enter><wait>",
+        "dhcp<enter><wait>",
+        "c0d0<enter><wait>",
+        "template<enter>template<enter>",
+        "y<enter><wait>",
+        "n<enter><wait>",
+        "y<enter><wait>"
+      ],
+      "boot_wait": "5s",
+      "vm_name": "{{user `vm_name`}}",
+      "disk_size": 50000,
+      "guest_os_type": "Solaris11_64",
+      "iso_checksum": "{{user `smartos_checksum`}}",
+      "iso_checksum_type": "md5",
+      "iso_url": "https://us-east.manta.joyent.com/Joyent_Dev/public/SmartOS/{{user `smartos_version`}}/smartos-{{user `smartos_version`}}.iso",
+      "ssh_username": "root",
+      "ssh_password": "template",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "600s",
+      "shutdown_command": "/sbin/halt -h -p",
+      "guest_additions_mode": "disable",
+      "format": "ova",
+      "output_directory": "output/{{user `vm_name`}}",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "4096"  ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+        [ "modifyvm", "{{.Name}}", "--nictype1", "82540EM" ]
+      ]
+    }
+  ]
+}
