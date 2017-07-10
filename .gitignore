@@ -1,4 +1,6 @@
+/cache
 .DS_Store
 *.swp
 .env
+.vagrant
 packer/packer_cache
