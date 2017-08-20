@@ -1,0 +1,26 @@
+{
+  "//": "Build 'vmware-vmx' errored: Clone is not supported with your version of Fusion. Packer only works with Fusion 6 Professional or above. Please verify your version.
+
+occurs with Fusion 8...",
+  "variables": {
+    "coal_release": "20170622-20170623T043049Z-gb9ac8cc-4gb",
+    "coal_vmx": "/Users/tomascelaya/vmware/coal-release-20170622-20170623T043049Z-gb9ac8cc-4gb.vmwarevm/USB-headnode.vmx",
+    "vm_name": "manta-headnode"
+  },
+  "builders": [
+    {
+      "type": "vmware-vmx",
+      "source_path": "{{user `coal_vmx`}}",
+      "output_directory": "output/{{user `vm_name`}}",
+      "ssh_username": "root",
+      "boot_wait": "20s",
+      "boot_command": [
+        "c",
+        "variable os_console vga<enter><esc>",
+        "<down><enter>",
+        "<wait10>",
+        "<enter><wait5>"
+      ]
+    }
+  ]
+}
