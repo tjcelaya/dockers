@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-16.10"
+
+  # config.vm.box_check_update = true
+
+  # config.vm.network "forwarded_port", guest: 8088, host: 8088
+
+  # Create a private network, which allows host-only access to the machine
+  config.vm.network "private_network", type: "dhcp"
+
+  # Create a public network, generally bridged mode
+  # config.vm.network "public_network"
+
+  # usage: <host_folder>, <guest_mount> [, opts ]
+  # config.vm.synced_folder "./root/CATALINA_HOME", "/_CATALINA_HOME"
+
+  # Example for VirtualBox:
+  # config.vm.provider "virtualbox" do |vb|
+  #   vb.gui = false
+  #   vb.memory = "4096"
+  # end
+
+  # config.push.define "atlas" do |push|
+  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
+  # end
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y openjdk-8-jdk tomcat8
+    sudo apt-get clean
+  SHELL
+end

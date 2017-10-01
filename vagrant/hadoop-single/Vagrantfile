@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "tjcelaya/ubuntu-16.10-java-openjdk-8-jre"
+  config.vm.box = "tjcelaya/ubuntu-16.10-java-openjdk-8-jdk"
 
   # config.vm.box_check_update = true
 
